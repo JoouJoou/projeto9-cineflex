@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 
 export default function Sucess() {
   const { state } = useLocation();
-  console.log(state);
   return (
     <Main>
       <div className="title">
@@ -22,7 +21,7 @@ export default function Sucess() {
         <div className="topic">
           <h2>Ingressos</h2>
           {state.list.map((e, i) => {
-            return <p>Assento {e}</p>;
+            return <p key={i}>Assento {e}</p>;
           })}
         </div>
         <div className="topic">

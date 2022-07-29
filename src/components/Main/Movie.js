@@ -6,7 +6,6 @@ import styled from "styled-components";
 
 export default function Section() {
   const { idMovie } = useParams();
-  console.log(idMovie);
   const [hour, setHour] = useState([]);
   useEffect(() => {
     axios
@@ -33,8 +32,8 @@ export default function Section() {
                   <div className="hour">
                     {e.showtimes.map((i) => {
                       return (
-                        <Link to={`/sessao/${i.id}`}>
-                          <button key={i.id}>{i.name}</button>
+                        <Link to={`/sessao/${i.id}`} key={i.id}>
+                          <button>{i.name}</button>
                         </Link>
                       );
                     })}

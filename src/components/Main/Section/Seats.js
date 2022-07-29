@@ -8,8 +8,8 @@ export default function Seats({ seats, setSelectedSeats }) {
         seats.map((e) => {
           return (
             <Seat
-              key={e.id}
               cl={e.isAvailable}
+              key={e.id}
               name={e.name}
               id={e.id}
               setSelectedSeats={setSelectedSeats}

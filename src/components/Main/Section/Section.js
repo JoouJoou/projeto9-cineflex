@@ -14,7 +14,6 @@ function postSeats(list, name, cpf, day, hour, movie, navigate, e) {
       name,
       cpf,
     };
-    console.log(body);
     axios
       .post(
         `https://mock-api.driven.com.br/api/v7/cineflex/seats/book-many`,
@@ -36,9 +35,7 @@ export default function Section() {
   const [name, setName] = useState("");
   const [cpf, setCpf] = useState("");
   const [seat, setSeat] = useState([]);
-  useEffect(() => {
-    console.log(selectedSeats);
-  }, [selectedSeats]);
+  useEffect(() => {}, [selectedSeats]);
   useEffect(() => {
     axios
       .get(

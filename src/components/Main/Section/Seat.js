@@ -1,15 +1,15 @@
 import styled from "styled-components";
 import { useState, useEffect } from "react";
 
-export default function Seat({ cl, name, setSelectedSeats }) {
+export default function Seat({ cl, name, setSelectedSeats, id }) {
   const [selected, setSelected] = useState(false);
   useEffect(() => {
     if (!selected) {
       setSelectedSeats((a) => {
-        return a.filter((e) => e !== Number(name));
+        return a.filter((e) => e !== Number(id));
       });
     } else {
-      setSelectedSeats((e) => [...e, Number(name)]);
+      setSelectedSeats((e) => [...e, Number(id)]);
     }
   }, [selected]);
   return (

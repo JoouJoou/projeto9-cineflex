@@ -1,6 +1,5 @@
 import Seat from "./Seat";
 import styled from "styled-components";
-import { useState, useEffect } from "react";
 
 export default function Seats({ seats, setSelectedSeats }) {
   return (
@@ -12,6 +11,7 @@ export default function Seats({ seats, setSelectedSeats }) {
               key={e.id}
               cl={e.isAvailable}
               name={e.name}
+              id={e.id}
               setSelectedSeats={setSelectedSeats}
             />
           );

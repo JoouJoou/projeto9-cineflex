@@ -18,7 +18,12 @@ export default function Inputs({ name, cpf, setName, setCpf }) {
         placeholder="Digite seu CPF..."
         value={cpf}
         onChange={({ target }) => {
-          setCpf(target.value);
+          if (
+            (Number(target.value) || target.value === "") &&
+            target.value.length < 12
+          ) {
+            setCpf(target.value);
+          }
         }}
         required
       ></input>

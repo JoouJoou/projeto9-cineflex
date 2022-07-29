@@ -1,21 +1,32 @@
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
 import Seats from "./Seats";
 import styled from "styled-components";
 import Inputs from "./Inputs";
 
-function postSeats(list, name, cpf, day, hour, movie, navigate) {
-  axios
-    .post(`https://mock-api.driven.com.br/api/v7/cineflex/seats/book-many`, {
+function postSeats(list, name, cpf, day, hour, movie, navigate, e) {
+  if (cpf.length < 11) {
+    alert("CPF deve conter 11 números");
+  } else {
+    const body = {
       ids: list,
       name,
       cpf,
-    })
-    .then(() => {
-      navigate("/sucesso", { state: { list, name, cpf, day, hour, movie } });
-    });
+    };
+    console.log(body);
+    axios
+      .post(
+        `https://mock-api.driven.com.br/api/v7/cineflex/seats/book-many`,
+        body
+      )
+      .then(() => {
+        navigate("/sucesso", { state: { list, name, cpf, day, hour, movie } });
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
+  }
 }
 
 export default function Section() {
@@ -26,6 +37,9 @@ export default function Section() {
   const [cpf, setCpf] = useState("");
   const [seat, setSeat] = useState([]);
   useEffect(() => {
+    console.log(selectedSeats);
+  }, [selectedSeats]);
+  useEffect(() => {
     axios
       .get(
         `https://mock-api.driven.com.br/api/v7/cineflex/showtimes/${idSection}/seats`
@@ -33,7 +47,7 @@ export default function Section() {
       .then((response) => {
         setSeat(response.data);
       });
-  }, []);
+  }, [selectedSeats]);
 
   return (
     <>
@@ -64,7 +78,8 @@ export default function Section() {
               seat.day?.weekday,
               seat?.name,
               seat.movie?.title,
-              navigate
+              navigate,
+              e
             );
           }}
         >
@@ -78,7 +93,7 @@ export default function Section() {
         <div className="ftimg">
           <img src={seat.movie?.posterURL}></img>
         </div>
-        <div>
+        <div className="movietitle">
           <h1>{seat.movie?.title}</h1>
           <h1>
             {seat.day?.weekday} - {seat?.name}
@@ -93,6 +108,7 @@ const Footer = styled.footer`
   width: 100%;
   height: 11.7rem;
   display: flex;
+  gap: 10rem;
   background: #dfe6ed;
   border-top: 1px solid #9eadba;
   position: fixed;
@@ -102,8 +118,6 @@ const Footer = styled.footer`
   font-style: normal;
   font-weight: 400;
   font-size: 26px;
-  line-height: 30px;
-  display: flex;
   align-items: center;
 
   color: #293845;
@@ -115,13 +129,18 @@ const Footer = styled.footer`
   .ftimg {
     margin-left: 1rem;
     width: 6.4rem;
-    height: 8.9rem;
+    height: 8.4rem;
     display: flex;
     justify-content: center;
     align-items: center;
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
     border-radius: 2px;
     background: #ffffff;
+  }
+  .movietitle {
+    display: flex;
+    max-width: 25rem;
+    flex-direction: column;
   }
 `;
 

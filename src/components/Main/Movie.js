@@ -2,6 +2,7 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import styled from "styled-components";
 
 export default function Section() {
   const { idMovie } = useParams();
@@ -17,14 +18,9 @@ export default function Section() {
       });
   }, []);
 
-  useEffect(() => {
-    console.log(hour);
-  }, [hour]);
-
-  console.log(hour);
   return (
     <>
-      <main>
+      <Main>
         <h1>Selecione o horário</h1>
         <section>
           {hour.title &&
@@ -47,7 +43,7 @@ export default function Section() {
               );
             })}
         </section>
-      </main>
+      </Main>
       <footer>
         <img src={hour.posterURL}></img>
         <h1>{hour.title}</h1>
@@ -55,3 +51,7 @@ export default function Section() {
     </>
   );
 }
+
+const Main = styled.main`
+  margin-top: 10rem;
+`;

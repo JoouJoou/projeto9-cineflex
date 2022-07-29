@@ -18,4 +18,7 @@ const Header = styled.header`
   align-items: center;
   color: #e8833a;
   font-weight: 400;
+  position: fixed;
+  top: 0;
+  left: 0;
 `;

@@ -5,7 +5,17 @@ import Seats from "./Seats";
 import styled from "styled-components";
 import Inputs from "./Inputs";
 
-function postSeats(list, name, cpf, day, hour, movie, navigate, e) {
+function postSeats(
+  list,
+  selectedSeatName,
+  name,
+  cpf,
+  day,
+  hour,
+  movie,
+  navigate,
+  e
+) {
   if (cpf.length < 11) {
     alert("CPF deve conter 11 números");
   } else {
@@ -20,7 +30,9 @@ function postSeats(list, name, cpf, day, hour, movie, navigate, e) {
         body
       )
       .then(() => {
-        navigate("/sucesso", { state: { list, name, cpf, day, hour, movie } });
+        navigate("/sucesso", {
+          state: { list, selectedSeatName, name, cpf, day, hour, movie },
+        });
       })
       .catch((error) => {
         console.log(error.message);
@@ -30,6 +42,7 @@ function postSeats(list, name, cpf, day, hour, movie, navigate, e) {
 
 export default function Section() {
   const [selectedSeats, setSelectedSeats] = useState([]);
+  const [selectedSeatName, setSelectSeatName] = useState([]);
   const navigate = useNavigate();
   const { idSection } = useParams();
   const [name, setName] = useState("");
@@ -50,7 +63,11 @@ export default function Section() {
     <>
       <Container>
         <h1>Selecione o(s) assento(s)</h1>
-        <Seats seats={seat.seats} setSelectedSeats={setSelectedSeats} />
+        <Seats
+          seats={seat.seats}
+          setSelectedSeats={setSelectedSeats}
+          selectedSeatName={setSelectSeatName}
+        />
         <div className="subtitle">
           <div>
             <button className="select"></button>
@@ -70,6 +87,7 @@ export default function Section() {
             e.preventDefault();
             postSeats(
               selectedSeats,
+              selectedSeatName,
               name,
               cpf,
               seat.day?.weekday,

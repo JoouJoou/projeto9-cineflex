@@ -1,15 +1,25 @@
 import styled from "styled-components";
 import { useState, useEffect } from "react";
 
-export default function Seat({ cl, name, setSelectedSeats, id }) {
+export default function Seat({
+  cl,
+  name,
+  setSelectedSeats,
+  id,
+  selectedSeatName,
+}) {
   const [selected, setSelected] = useState(false);
   useEffect(() => {
     if (!selected) {
       setSelectedSeats((a) => {
         return a.filter((e) => e !== Number(id));
       });
+      selectedSeatName((b) => {
+        return b.filter((c) => c !== Number(name));
+      });
     } else {
       setSelectedSeats((e) => [...e, Number(id)]);
+      selectedSeatName((a) => [...a, Number(name)]);
     }
   }, [selected]);
   return (

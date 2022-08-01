@@ -20,7 +20,7 @@ export default function Sucess() {
 
         <div className="topic">
           <h2>Ingressos</h2>
-          {state.list.map((e, i) => {
+          {state.selectedSeatName.map((e, i) => {
             return <p key={i}>Assento {e}</p>;
           })}
         </div>
